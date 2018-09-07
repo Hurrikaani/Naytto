@@ -1,0 +1,165 @@
+﻿@model IEnumerable<Opinnaytetyo.Models.Opiskelija>
+    @{
+        ViewBag.Title = "Index";
+    }
+    <link href="~/tyyli.css" rel="stylesheet" />
+    @section scripts{
+
+        <script type="text/javascript">
+
+            function PäivitäOpisklijaListaus() {
+                $.getJSON("/oppilas/haelista", null, function (json) {
+                    var oppilaat = JSON.parse(json);
+                    //     alert("Oppilaita yhteensä" + oppilaat.length);
+
+                    var html = "";
+                    for (var index = 0; index < oppilaat.length; index++) {
+                        html += "<tr>" +
+                            "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
+                            "<td>" + oppilaat[index].OpiskelijaID + "</td>" +
+                            "<td>" + oppilaat[index].Etunimi + "</td>" +
+                            "<td>" + oppilaat[index].Sukunimi + "</td>" +
+                            "<td>" + oppilaat[index].Puhelin + "</td>" +
+                            "<td>" + oppilaat[index].Email + "</td>" +
+                            "<td>" + oppilaat[index].Osoite + "</td>" +
+                            "<td>" + oppilaat[index].Postinumero + "</td>" +
+                            "<td>" + oppilaat[index].Lisatiedot + "</td>" +
+                            "</tr>\r\n";
+                    }
+
+                    $("#oppilasLista tbody").html(html);
+
+                    // tietojen muokkaus
+                    $(".glyphicon-pencil").click(function () {
+                        // etsitään asiakkaan tiedot klikatulta riviltä
+                        var oppilasId = $(this).parent().parent().next().text();
+                        alert(oppilasId);
+
+                        // haetaan asiakkaan tiedot id:n perusteella
+                        $.getJSON("/oppilas/haeyksittainenopiskelija/" + oppilasId, null, function (json) {
+                            var oppilas = JSON.parse(json);
+
+                            // kopioidaan tiedot ikkunaan
+                            $("#oppilasModal_opiskelijaId").val(oppilas.OpiskelijaID);
+                            $("#oppilasModal_etunimi").val(oppilas.Etunimi);
+                            $("#oppilasModal_sukunimi").val(oppilas.Sukunimi);
+                            $("#oppilasModal_puhelin").val(oppilas.Puhelin);
+                            $("#oppilasModal_email").val(oppilas.Email);
+                            $("#oppilasModal_osoite").val(oppilas.Osoite);
+                            $("#oppilasModal_postinumero").val(oppilas.Postinumero);
+                            $("#oppilasModal_lisatiedot").val(oppilas.Lisatiedot);
+
+                            // näytetään ikkuna
+                            $("#oppilasmodaltitle").text("Muokkaa oppilasta");
+                            $("#OppilasModelDialog").modal("show");
+
+
+                        });
+
+                    });
+                });
+            }
+
+
+            //$("#OpiskelijaModalSaveButton").click(function () {
+            //     // luetaan käyttäjän syöttämät kentät
+            //     var details = {
+            //         CustomerID: $("#oppilasModal_opiskelijaId").val(),
+            //         CompanyName: $("#oppilasModal_etunimi").val(),
+            //         Address: $("#oppilasModal_sukunimi").val(),
+            //         City: $("#oppilasModal_puhelin").val()
+            //         City: $("#oppilasModal_email").val()
+            //         City: $("#oppilasModal_osoite").val()
+            //         City: $("#oppilasModal_postinumero").val()
+            //         City: $("#oppilasModal_lisatiedot").val()
+            //     };
+
+            //     $.post("/oppilas/paivita/", details, function (status) {
+            //         if (status == true) {
+            //             alert("Uudet tiedot tallennettu!");
+            //             $("#OppilasModelDialog").modal("hide");
+            //             PäivitäOpisklijaListaus();
+            //         }
+            //         else {
+            //             alert("Tallennus ei onnistunut, yritä uudelleen!");
+            //         }
+            //     });
+            // });
+
+
+            $(function () {
+                PäivitäOpisklijaListaus();
+            });
+        </script>
+
+    }
+
+    <h2>Index</h2>
+
+    <table class="table" style="width:100%" id="oppilasLista">
+        <thead>
+            <tr>
+                <th></th>
+                <th>OpiskelijaID</th>
+                <th>Etunimi</th>
+                <th>Sukunimi</th>
+                <th>Puhelin</th>
+                <th>Email</th>
+                <th>Osoite</th>
+                <th>Postinumero</th>
+                <th>Lisätiedot</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <h6>Opiskelijoita yhteensä:@Model.Count() </h6>
+
+        <!--Modal ikkuna-->
+        <div class="modal fade" tabindex="-1" role="dialog" id="OppilasModelDialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><span id="oppilasmodaltitle">Muokkaa oppilasta</span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3">Opiskelija-id</div>
+                            <div class="col-md-6"><input class="form-control" id="oppilasModal_opiskelijaId" type="text" readonly></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Etunimi</div>
+                            <div class="col-md-6"><input class="form-control" id="oppilasModal_etunimi" type="text"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Sukunimi</div>
+                            <div class="col-md-6"><input class="form-control" id="oppilasModal_sukunimi" type="text"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Puhelin</div>
+                            <div class="col-md-6"><input class="form-control" id="oppilasModal_puhelin" type="text"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Email</div>
+                            <div class="col-md-6"><input class="form-control" id="oppilasModal_email" type="text"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Osoite</div>
+                            <div class="col-md-6"><input class="form-control" id="oppilasModal_osoite" type="text"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Postinumero</div>
+                            <div class="col-md-6"><input class="form-control" id="oppilasModal_postinumero" type="text"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Lisätiedot</div>
+                            <div class="col-md-6"><input class="form-control" id="oppilasModal_lisatiedot" type="text"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                        <button type="button" class="btn btn-primary" id="OpiskelijaModalSaveButton">Tallenna</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->

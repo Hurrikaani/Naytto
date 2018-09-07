@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OpiskelijaTietokantaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kayttajatunnukset">
+          <Key>
+            <PropertyRef Name="KayttajatunnusID" />
+          </Key>
+          <Property Name="KayttajatunnusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kayttajatunnus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salasana" Type="nvarchar" MaxLength="50" />
+          <Property Name="RekisteröiytmisPVM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Opiskelija">
+          <Key>
+            <PropertyRef Name="OpiskelijaID" />
+          </Key>
+          <Property Name="OpiskelijaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Etunimi" Type="nvarchar" MaxLength="100" />
+          <Property Name="Sukunimi" Type="nvarchar" MaxLength="100" />
+          <Property Name="Puhelin" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Osoite" Type="nvarchar" MaxLength="100" />
+          <Property Name="Postinumero" Type="int" />
+          <Property Name="Lisatiedot" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Postitoimipaikat">
+          <Key>
+            <PropertyRef Name="Postinumero" />
+          </Key>
+          <Property Name="Postinumero" Type="int" Nullable="false" />
+          <Property Name="Postitoimipaikka" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityContainer Name="OpiskelijaTietokantaModelStoreContainer">
+          <EntitySet Name="Kayttajatunnukset" EntityType="Self.Kayttajatunnukset" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Opiskelija" EntityType="Self.Opiskelija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Postitoimipaikat" EntityType="Self.Postitoimipaikat" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OpiskelijaTietokantaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kayttajatunnukset">
+          <Key>
+            <PropertyRef Name="KayttajatunnusID" />
+          </Key>
+          <Property Name="KayttajatunnusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kayttajatunnus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salasana" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RekisteröiytmisPVM" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Opiskelija">
+          <Key>
+            <PropertyRef Name="OpiskelijaID" />
+          </Key>
+          <Property Name="OpiskelijaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Etunimi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Sukunimi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Puhelin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Osoite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Postinumero" Type="Int32" />
+          <Property Name="Lisatiedot" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Postitoimipaikat">
+          <Key>
+            <PropertyRef Name="Postinumero" />
+          </Key>
+          <Property Name="Postinumero" Type="Int32" Nullable="false" />
+          <Property Name="Postitoimipaikka" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="OpiskelijaTietokantaEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kayttajatunnukset" EntityType="Self.Kayttajatunnukset" />
+          <EntitySet Name="Opiskelija" EntityType="Self.Opiskelija" />
+          <EntitySet Name="Postitoimipaikat" EntityType="Self.Postitoimipaikat" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OpiskelijaTietokantaModelStoreContainer" CdmEntityContainer="OpiskelijaTietokantaEntities1">
+          <EntitySetMapping Name="Kayttajatunnukset">
+            <EntityTypeMapping TypeName="OpiskelijaTietokantaModel.Kayttajatunnukset">
+              <MappingFragment StoreEntitySet="Kayttajatunnukset">
+                <ScalarProperty Name="KayttajatunnusID" ColumnName="KayttajatunnusID" />
+                <ScalarProperty Name="Kayttajatunnus" ColumnName="Kayttajatunnus" />
+                <ScalarProperty Name="Salasana" ColumnName="Salasana" />
+                <ScalarProperty Name="RekisteröiytmisPVM" ColumnName="RekisteröiytmisPVM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Opiskelija">
+            <EntityTypeMapping TypeName="OpiskelijaTietokantaModel.Opiskelija">
+              <MappingFragment StoreEntitySet="Opiskelija">
+                <ScalarProperty Name="OpiskelijaID" ColumnName="OpiskelijaID" />
+                <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
+                <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
+                <ScalarProperty Name="Puhelin" ColumnName="Puhelin" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Osoite" ColumnName="Osoite" />
+                <ScalarProperty Name="Postinumero" ColumnName="Postinumero" />
+                <ScalarProperty Name="Lisatiedot" ColumnName="Lisatiedot" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Postitoimipaikat">
+            <EntityTypeMapping TypeName="OpiskelijaTietokantaModel.Postitoimipaikat">
+              <MappingFragment StoreEntitySet="Postitoimipaikat">
+                <ScalarProperty Name="Postinumero" ColumnName="Postinumero" />
+                <ScalarProperty Name="Postitoimipaikka" ColumnName="Postitoimipaikka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
