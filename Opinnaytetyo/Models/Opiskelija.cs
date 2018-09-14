@@ -20,7 +20,9 @@ namespace Opinnaytetyo.Models
         public string Puhelin { get; set; }
         public string Email { get; set; }
         public string Osoite { get; set; }
-        public Nullable<int> Postinumero { get; set; }
+        public Nullable<int> PostinumeroID { get; set; }
         public string Lisatiedot { get; set; }
+    
+        public virtual Postitoimipaikat Postitoimipaikat { get; set; }
     }
 }

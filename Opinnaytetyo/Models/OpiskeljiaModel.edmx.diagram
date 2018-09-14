@@ -5,9 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1860e6d6e8b24746a6bfaff13c95456e" Name="Diagram1">
-        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Kayttajatunnukset" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Opiskelija" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Postitoimipaikat" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Kayttajatunnukset" Width="1.5" PointX="5" PointY="3.25" />
+        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Opiskelija" Width="1.5" PointX="7" PointY="0.5" />
+        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Postitoimipaikat" Width="1.5" PointX="3.125" PointY="0.625" />
+        <AssociationConnector Association="OpiskelijaTietokantaModel.FK_Opiskelija_Postitoimipaikat" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

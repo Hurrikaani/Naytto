@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Opinnaytetyo.Models;
+using Opinnaytetyo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,50 @@ namespace Opinnaytetyo.Controllers
 {
     public class OppilasController : Controller
     {
+        private OpiskelijaTietokantaEntities1 db = new OpiskelijaTietokantaEntities1();
         // GET: Oppilas
         public ActionResult Index()
         {
             OpiskelijaTietokantaEntities1 entities = new OpiskelijaTietokantaEntities1();
             List<Opiskelija> model = entities.Opiskelija.ToList();
             entities.Dispose();
-
             return View(model);
         }
+
+        public ActionResult OpiskelijaLista()
+        {
+            List<OppilasViewModel> model = new List<OppilasViewModel>();
+            OpiskelijaTietokantaEntities1 entities = new OpiskelijaTietokantaEntities1();
+
+            
+            try
+            {
+                List<Opiskelija> opiskelijat = entities.Opiskelija.ToList();
+                foreach (Opiskelija op in opiskelijat)
+                {
+                    OppilasViewModel ovm = new OppilasViewModel();
+                    ovm.OpiskelijaID = op.OpiskelijaID;
+                    ovm.Etunimi = op.Etunimi;
+                    ovm.Sukunimi = op.Sukunimi;
+                    ovm.Puhelin = op.Puhelin;
+                    ovm.Email = op.Email;
+                    ovm.Osoite = op.Osoite;
+                    ovm.Postinumero = op.Postitoimipaikat?.Postinumero;
+                    ovm.PostinumeroID = op.Postitoimipaikat?.PostinumeroID;
+                    ovm.Postitoimipaikka = op.Postitoimipaikat?.Postitoimipaikka;
+                    model.Add(ovm);
+                }
+                return View(model);
+                  
+                }
+            finally
+            {
+                entities.Dispose();
+            }
+          }
+          
+
+        
         public JsonResult HaeLista()
         {
             OpiskelijaTietokantaEntities1 entities = new OpiskelijaTietokantaEntities1();
@@ -34,7 +70,6 @@ namespace Opinnaytetyo.Controllers
                              Puhelin = op.Puhelin,
                              Email = op.Email,
                              Osoite = op.Osoite,
-                             Postinumero = op.Postinumero,
                              Lisatiedot = op.Lisatiedot
                          }).ToList();
 
@@ -59,7 +94,6 @@ namespace Opinnaytetyo.Controllers
                              Puhelin = op.Puhelin,
                              Email = op.Email,
                              Osoite = op.Osoite,
-                             Postinumero = op.Postinumero,
                              Lisatiedot = op.Lisatiedot
                          }).FirstOrDefault();
 

@@ -22,7 +22,7 @@
                             "<td>" + oppilaat[index].Puhelin + "</td>" +
                             "<td>" + oppilaat[index].Email + "</td>" +
                             "<td>" + oppilaat[index].Osoite + "</td>" +
-                            "<td>" + oppilaat[index].Postinumero + "</td>" +
+                            "<td>" + oppilaat[index].postitoimipaikat + "</td>" +
                             "<td>" + oppilaat[index].Lisatiedot + "</td>" +
                             "</tr>\r\n";
                     }
@@ -46,7 +46,7 @@
                             $("#oppilasModal_puhelin").val(oppilas.Puhelin);
                             $("#oppilasModal_email").val(oppilas.Email);
                             $("#oppilasModal_osoite").val(oppilas.Osoite);
-                            $("#oppilasModal_postinumero").val(oppilas.Postinumero);
+                            $("#oppilasModal_postitoimipaikka").val(oppilas.Postitoimipaikat);
                             $("#oppilasModal_lisatiedot").val(oppilas.Lisatiedot);
 
                             // näytetään ikkuna
@@ -115,7 +115,7 @@
     <h6>Opiskelijoita yhteensä:@Model.Count() </h6>
 
         <!--Modal ikkuna-->
-        <div class="modal fade" tabindex="-1" role="dialog" id="OppilasModelDialog">
+        <div class="modal fade" tabindex="-1" role="dialog" id="OppilasModelDialog" style="color:black">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -150,6 +150,10 @@
                         <div class="row">
                             <div class="col-md-3">Postinumero</div>
                             <div class="col-md-6"><input class="form-control" id="oppilasModal_postinumero" type="text"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Postitoimipaikka</div>
+                            <div class="col-md-6"><input class="form-control" id="oppilasModal_postitoimipaikka" type="text"></div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">Lisätiedot</div>

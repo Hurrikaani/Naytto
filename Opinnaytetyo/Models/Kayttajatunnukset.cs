@@ -11,12 +11,10 @@ namespace Opinnaytetyo.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Kayttajatunnukset
     {
         public int KayttajatunnusID { get; set; }
-
         public string Kayttajatunnus { get; set; }
         public string Salasana { get; set; }
         public Nullable<System.DateTime> RekisteröiytmisPVM { get; set; }

@@ -14,7 +14,17 @@ namespace Opinnaytetyo.Models
     
     public partial class Postitoimipaikat
     {
-        public int Postinumero { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Postitoimipaikat()
+        {
+            this.Opiskelija = new HashSet<Opiskelija>();
+        }
+    
+        public string Postinumero { get; set; }
         public string Postitoimipaikka { get; set; }
+        public int PostinumeroID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Opiskelija> Opiskelija { get; set; }
     }
 }
